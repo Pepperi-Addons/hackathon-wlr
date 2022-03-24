@@ -1,10 +1,32 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import jwt from 'jwt-decode';
 import { PapiClient } from '@pepperi-addons/papi-sdk';
 import { Injectable } from '@angular/core';
 
 import { PepHttpService, PepSessionService } from '@pepperi-addons/ngx-lib';
 
+export interface UIType {
+    ID: number;
+    Name: string;
+}
+
+
+export interface ItemFieldMetaData {
+    InternalID: number;
+    FieldID: string;
+    Label: string;
+    Description: string;
+    IsUserDefinedField: boolean;
+    UIType: UIType;
+    Type: string;
+    Format: string;
+    CreationDateTime: Date;
+    ModificationDateTime: Date;
+    Hidden: boolean;
+    CSVMappedColumnName?: any;
+    UserDefinedTableSource?: any;
+    CalculatedRuleEngine?: any;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AddonService {
@@ -23,6 +45,9 @@ export class AddonService {
         })
     }
 
+    private _itemMetaData = new BehaviorSubject<Array<ItemFieldMetaData>>([]);
+    public itemMetaData$ = this._itemMetaData.asObservable();
+    
     constructor(
         public session:  PepSessionService,
         private pepHttp: PepHttpService
@@ -47,6 +72,10 @@ export class AddonService {
     pepPost(endpoint: string, body: any): Observable<any> {
         return this.pepHttp.postPapiApiCall(endpoint, body);
 
+    }
+
+    async getItemFields(){
+        return this.get("meta_data/items/fields");//.then((fieldMetaData) => this._itemMetaData.next(fieldMetaData))
     }
 
 }

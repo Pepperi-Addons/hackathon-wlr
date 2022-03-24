@@ -9,8 +9,14 @@
     </ng-container>
 
     <ng-container pep-main-area>
-        addon works
+        <div>
+            Condition configuration
+            <pep-select [mandatory]="true" [value]="selectedField" [options]="fieldOptions" (valueChange)="onFieldChange($event)" label="Item Field"
+            > </pep-select>
+        
+                <pep-select [mandatory]="true" [value]="selectedValue" [options]="valueOptions" (valueChange)="onValueChange($event)" label="Is"
+            > </pep-select>
+        </div>
+        
     </ng-container>
 </pep-page-layout>
-
-<pep-size-detector></pep-size-detector>
