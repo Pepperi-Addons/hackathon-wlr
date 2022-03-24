@@ -19,7 +19,7 @@ async function handleAlternativeData(data: UIObject, client) {
     // let transaction = transactionLine.transaction;
 
     // debugger;
-
+    
     let alternativeItemUUID = await transactionLine.item.getFieldValue('TSAAlternativeItems');
     if (alternativeItemUUID === null) {
         return null;

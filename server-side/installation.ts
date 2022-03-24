@@ -16,6 +16,7 @@ export async function install(client: Client, request: Request): Promise<any> {
     // For page block template uncomment this.
     // const res = await createPageBlockRelation(client);
     // return res;
+    await createAdalScheme(client);
     return {success:true,resultObject:{}}
 }
 
@@ -24,11 +25,17 @@ export async function uninstall(client: Client, request: Request): Promise<any> 
 }
 
 export async function upgrade(client: Client, request: Request): Promise<any> {
+    await createAdalScheme(client);
     return {success:true,resultObject:{}}
 }
 
 export async function downgrade(client: Client, request: Request): Promise<any> {
     return {success:true,resultObject:{}}
+}
+
+async function createAdalScheme(client: Client){
+    const service = new MyService(client);
+    return await service.createFiltersSchema();
 }
 
 

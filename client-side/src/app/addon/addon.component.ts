@@ -52,10 +52,7 @@ export class AddonComponent implements OnInit {
     }
 
     ngOnInit() {
-    }
-
-    openDialog() {
-        
+        this.getAltItemCondition();
     }
 
     onFieldChange(itemField : string){
@@ -64,5 +61,22 @@ export class AddonComponent implements OnInit {
 
     onValueChange(selectedValue : string){
         this.selectedValue = selectedValue;
+    }
+
+    async onSaveClick(){
+        const altItemCondition = {
+            FieldName: this.selectedField,
+            FieldValue: this.selectedValue
+        }
+        const result = await this.addonService.getAltItemsEndpoint()
+            .post(undefined, altItemCondition);
+        console.log(JSON.stringify(result));
+      }
+
+    async getAltItemCondition() {
+        const condition = await this.addonService.getAltItemsEndpoint()
+            .get();
+        this.selectedField = condition?.FieldName;
+        this.selectedValue = condition?.FieldValue;
     }
 }

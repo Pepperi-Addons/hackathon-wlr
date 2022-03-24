@@ -14,6 +14,7 @@ import { TranslateLoader, TranslateModule, TranslateService, TranslateStore } fr
 import { AddonService } from './addon.service';
 import { AddonComponent } from './index';
 import { PepSelectModule } from '@pepperi-addons/ngx-lib/select';
+import { PepButtonModule } from '@pepperi-addons/ngx-lib/button';
 
 const pepIcons = [
     pepIconSystemClose,
@@ -38,6 +39,7 @@ export const routes: Routes = [
         PepTopBarModule,
         PepPageLayoutModule,
         PepSelectModule,
+        PepButtonModule,
         TranslateModule.forChild({
             loader: {
                 provide: TranslateLoader,

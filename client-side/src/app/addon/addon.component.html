@@ -16,6 +16,9 @@
         
                 <pep-select [mandatory]="true" [value]="selectedValue" [options]="valueOptions" (valueChange)="onValueChange($event)" label="Is"
             > </pep-select>
+
+            <pep-button value="Save Filter Configuration" sizeType="sm" styleType="regular" classNames="pep-spacing-element"
+                (click)="onSaveClick();" ></pep-button>
         </div>
         
     </ng-container>

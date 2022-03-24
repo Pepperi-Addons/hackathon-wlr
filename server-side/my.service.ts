@@ -1,5 +1,6 @@
-import { PapiClient, InstalledAddon } from '@pepperi-addons/papi-sdk'
+import { PapiClient, InstalledAddon, AddonDataScheme } from '@pepperi-addons/papi-sdk'
 import { Client } from '@pepperi-addons/debug-server';
+import { ALT_ITEMS_TABLE } from './alt-items.service';
 
 class MyService {
 
@@ -26,6 +27,22 @@ class MyService {
 
     getAddons(): Promise<InstalledAddon[]> {
         return this.papiClient.addons.installedAddons.find({});
+    }
+
+    async createFiltersSchema(){
+        const tableScheme : AddonDataScheme = {
+            Name: ALT_ITEMS_TABLE,
+            Type: 'indexed_data',
+            Fields: {
+                FieldName: {
+                    Type: 'String'
+                },
+                FieldValue: {
+                    Type: 'Bool'
+                },
+            }
+        }
+        return this.papiClient.addons.data.schemes.post( tableScheme as any)
     }
 }
 

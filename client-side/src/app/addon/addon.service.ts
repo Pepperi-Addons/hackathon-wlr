@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import jwt from 'jwt-decode';
 import { PapiClient } from '@pepperi-addons/papi-sdk';
 import { Injectable } from '@angular/core';
-
+import {config} from '../addon/addon.config';
 import { PepHttpService, PepSessionService } from '@pepperi-addons/ngx-lib';
 
 export interface UIType {
@@ -34,7 +34,7 @@ export class AddonService {
     accessToken = '';
     parsedToken: any
     papiBaseURL = ''
-    addonUUID;
+    addonUUID = config.AddonUUID;
 
     get papiClient(): PapiClient {
         return new PapiClient({
@@ -76,6 +76,11 @@ export class AddonService {
 
     async getItemFields(){
         return this.get("meta_data/items/fields");//.then((fieldMetaData) => this._itemMetaData.next(fieldMetaData))
+    }
+
+    getAltItemsEndpoint(){
+        return this.papiClient.addons.api.uuid(this.addonUUID)
+            .file('api').func('alt_items_conditions');
     }
 
 }
